@@ -2,7 +2,6 @@ import React, { useState, useId } from "react";
 
 function Form(props) {
     const [name, setName] = useState("");
-    const id = useId();
     function handleChange(e) {
       setName(e.target.value);
     }
@@ -12,7 +11,7 @@ function Form(props) {
         if (name === "") {
           return;
         }
-        props.addTask(id, name);
+        props.addTask(name);
         setName("");
     }
     

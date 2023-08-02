@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import Form from './components/Form';
 import FilterButton from './components/FilterButton';
 import Todo from './components/Todo';
@@ -14,15 +14,14 @@ function App(props) {
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
       deleteTask={deleteTask}
-      editTask={editTask}
     />
   ));
   const taskNoun = taskList.length !== 1 ? "tasks" : "task";
   const listHeadingText = `${taskList.length} ${taskNoun} remaining`;
   
   // functions
-  function addTask(id, name) {
-    const newTask = { id, name, completed: false };
+  function addTask(name) {
+    const newTask = { id: `${Math.random()}`, name, completed: false };
     setTasks([...tasks, newTask]);
   };
 
@@ -30,15 +29,6 @@ function App(props) {
     const remainingTasks = tasks.filter((task) => id !== task.id);
     setTasks(remainingTasks);
   };
-
-  function editTask(id, newName) {
-    const editedTaskList = tasks.map((task) => { 
-      if (id === task.id) { 
-        return { ...task, name: newName };
-      }
-    });
-    setTasks(editedTaskList);
-  }
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
@@ -54,7 +44,7 @@ function App(props) {
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
-      <Form addTask={addTask} />
+      <Form addTask={addTask}/>
       <div className="filters btn-group stack-exception">
         <FilterButton />
         <FilterButton />
