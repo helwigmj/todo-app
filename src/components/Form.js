@@ -1,11 +1,11 @@
-import React, { useState, useId } from "react";
+import React, { useState } from "react";
 
 function Form(props) {
     const [name, setName] = useState("");
+    // functions
     function handleChange(e) {
       setName(e.target.value);
-    }
-
+    };
     function handleSubmit(e) {
         e.preventDefault();
         if (name === "") {
@@ -13,8 +13,7 @@ function Form(props) {
         }
         props.addTask(name);
         setName("");
-    }
-    
+    };
     return (
         <form onSubmit={handleSubmit}>
             <h2 className="label-wrapper">
