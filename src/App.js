@@ -21,8 +21,8 @@ function App(props) {
   const listHeadingText = `${taskList.length} ${taskNoun} remaining`;
   
   // functions
-  function addTask(name) {
-    const newTask = { id: name, name, completed: false };
+  function addTask(id, name) {
+    const newTask = { id, name, completed: false };
     setTasks([...tasks, newTask]);
   };
 
@@ -33,7 +33,7 @@ function App(props) {
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => { 
-      if (id = task.id) { 
+      if (id === task.id) { 
         return { ...task, name: newName };
       }
     });

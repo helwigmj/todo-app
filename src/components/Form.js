@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 
 function Form(props) {
     const [name, setName] = useState("");
-
+    const id = useId();
     function handleChange(e) {
       setName(e.target.value);
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
         if (name === "") {
           return;
         }
-        props.addTask(name);
+        props.addTask(id, name);
         setName("");
     }
     
