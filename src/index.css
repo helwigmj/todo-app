@@ -290,3 +290,16 @@ body {
 .c-cb > input[type="checkbox"]:checked + label::after {
   opacity: 1;
 }
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: inline-block;
+    width: 100%;
+    font-size: 1.9rem;
+}
+
+.react-datepicker__input-container input {
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
