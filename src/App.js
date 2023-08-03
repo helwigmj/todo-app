@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Form from './components/Form';
-import Todo from './components/Todo';
+import TodoList from './components/TodoList';
 
 function App(props) {
   // variables
   const [tasks, setTasks] = useState(props.tasks);
   const taskList = tasks
     .map((task) => (
-      <Todo
+      <TodoList
         id={task.id}
         name={task.name}
         completed={task.completed}
         key={task.id}
         date={task.date}
+        isEditing={task.isEditing}
+        toggleTaskEditing={toggleTaskEditing}
         toggleTaskCompleted={toggleTaskCompleted}
         deleteTask={deleteTask}
         editTask={editTask}
@@ -34,9 +36,8 @@ function App(props) {
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => {
-      // if this task has the same ID as the edited task
       if (id === task.id) {
-        //
+        toggleTaskEditing(id);
         return { ...task, name: newName };
       }
       return task;
@@ -48,6 +49,16 @@ function App(props) {
     const updatedTasks = tasks.map((task) => {
       if (id = task.id) {
         return { ...task, completed: !task.completed }
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
+  function toggleTaskEditing(id) {
+    const updatedTasks = tasks.map((task) => {
+      if (id = task.id) {
+        return { ...task, isEditing: !task.isEditing }
       }
       return task;
     });
