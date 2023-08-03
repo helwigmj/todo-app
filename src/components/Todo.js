@@ -39,7 +39,7 @@ function Todo(props) {
           onChange={() => props.toggleTaskCompleted(props.id)}
         />
         <label className="todo-label" htmlFor={props.id}>
-          {props.name}
+          {props.name} | Due by: {props.date}
         </label>
       </div>
       <div className="btn-group">
@@ -59,6 +59,7 @@ function Todo(props) {
   function handleChange(e) {
     setNewName(e.target.value);
   };
+
   function handleSubmit(e) {
     e.preventDefault();
     props.editTask(props.id, newName);

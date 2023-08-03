@@ -9,6 +9,7 @@ const FILTER_MAP = {
   Completed: (task) => task.completed,
 };
 const FILTER_NAMES = Object.keys(FILTER_MAP);
+
 function App(props) {
   // variables
   const [tasks, setTasks] = useState(props.tasks);
@@ -21,6 +22,7 @@ function App(props) {
         name={task.name}
         completed={task.completed}
         key={task.id}
+        date={task.date}
         toggleTaskCompleted={toggleTaskCompleted}
         deleteTask={deleteTask}
         editTask={editTask}
@@ -38,8 +40,8 @@ function App(props) {
   const listHeadingText = `${taskList.length} ${taskNoun} remaining`;
   
   // functions
-  function addTask(name) {
-    const newTask = { id: `${Math.random()}`, name, completed: false };
+  function addTask(name, date) {
+    const newTask = { id: `${Math.random()}`, name, date, completed: false };
     setTasks([...tasks, newTask]);
   };
 
