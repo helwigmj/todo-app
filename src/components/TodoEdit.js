@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+// import { TaskContext } from "../App";
 
 function TodoEdit(props) {
+  // TODO: add useContext to fix task edit functionality
   const [newName, setNewName] = useState("");
 
+  // functions
   function handleChange(e) {
     setNewName(e.target.value);
   };
-
   function handleSubmit(e) {
     e.preventDefault();
     props.editTask(props.id, newName);
     setNewName("");
     props.toggleTaskEditing(props.id);
-  }
+  };
+  // UI return statement
   return (
     <form className="stack-small" onSubmit={handleSubmit}>
       <div className="form-group">

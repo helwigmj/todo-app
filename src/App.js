@@ -1,27 +1,13 @@
-import React, { useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import Form from './components/Form';
 import TodoList from './components/TodoList';
 
-function App(props) {
+export const TaskContext = createContext();
+function App() {
   // variables
-  const [tasks, setTasks] = useState(props.tasks);
-  const taskList = tasks
-    .map((task) => (
-      <TodoList
-        id={task.id}
-        name={task.name}
-        completed={task.completed}
-        key={task.id}
-        date={task.date}
-        isEditing={task.isEditing}
-        toggleTaskEditing={toggleTaskEditing}
-        toggleTaskCompleted={toggleTaskCompleted}
-        deleteTask={deleteTask}
-        editTask={editTask}
-      />
-  ));
-  const taskNoun = taskList.length !== 1 ? "tasks" : "task";
-  const listHeadingText = `${taskList.length} ${taskNoun} remaining`;
+  const [tasks, setTasks] = useState([]);
+  const taskNoun = tasks.length !== 1 ? "tasks" : "task";
+  const listHeadingText = `${tasks.length} ${taskNoun} remaining`;
   
   // functions
   function addTask(name, date) {
@@ -36,13 +22,13 @@ function App(props) {
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => {
-      if (id === task.id) {
-        toggleTaskEditing(id);
-        return { ...task, name: newName };
+      if (id = task.id) {
+        return { ...task, name: newName }
       }
       return task;
     });
     setTasks(editedTaskList);
+    console.log('editTask tasks after setTasks: ', tasks);
   };  
 
   function toggleTaskCompleted(id) {
@@ -62,22 +48,26 @@ function App(props) {
       }
       return task;
     });
+    console.log('toggleTaskEditing tasks after setTasks: ', tasks);
     setTasks(updatedTasks);
   };
 
-  // return statement HTML
+  // UI return statement
   return (
-    <div className="todoapp stack-large">
-      <h1>TodoMatic</h1>
-      <Form addTask={addTask}/>
-      <h2 id="list-heading">{listHeadingText}</h2>
-      <ul
-        role="list"
-        className="todo-list stack-large stack-exception"
-        aria-labelledby="list-heading">
-          {taskList}
-      </ul>
-    </div>
+    <TaskContext.Provider value={{ tasks, setTasks }}>
+      <div className="todoapp stack-large">
+        <h1>TodoMatic</h1>
+        <Form addTask={addTask}/>
+        <h2 id="list-heading">{listHeadingText}</h2>
+          <TodoList
+            tasks={tasks}
+            editTask={editTask}
+            deleteTask={deleteTask}
+            toggleTaskEditing={toggleTaskEditing}
+            toggleTaskCompleted={toggleTaskCompleted}
+          />
+      </div>
+    </TaskContext.Provider>
   );
 }
 

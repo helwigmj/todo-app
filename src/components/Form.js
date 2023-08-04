@@ -17,7 +17,6 @@ function Form(props) {
         if (name === "") {
           return;
         }
-        console.log('date: ', date.toLocaleDateString());
         props.addTask(name, date.toLocaleDateString());
         setName("");
     };
